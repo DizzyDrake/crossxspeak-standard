@@ -1,0 +1,622 @@
+<!doctype html>
+<!-- Standard v0.2.3: owner-directed swipe correction for phone trial. Derived from WQ431 v0.2.2, B437 retained. No live phone test claimed. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#15263b">
+<title>CrossXSpeak — Standard v0.2.3 phone swipe trial</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#f7f9fc;background:#15263b;font-size:17px}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh}button,select,textarea,input{font:inherit}button,select{min-height:48px}button{cursor:pointer;border:2px solid #b4c7e3;border-radius:13px;background:#253c59;color:#fff;padding:9px 13px;font-weight:700}button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-visible{outline:4px solid #ffda73;outline-offset:2px}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:#ffda73;border-color:#ffda73;color:#16283c}.stop{background:#a92936;border-color:#ff9aa4;color:#fff}.quiet{background:#273a52}.small{font-size:.93rem}.app{max-width:760px;margin:auto;min-height:100dvh;padding:12px 12px 30px;display:flex;flex-direction:column;gap:12px}.mast{display:flex;align-items:center;justify-content:space-between;gap:12px}.mast strong{font-size:1.18rem}.mast small{display:block;color:#cbd6e6}.mast button{min-width:90px}.notice{min-height:24px;color:#ffdf94;font-size:.9rem}.cross{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr);grid-template-rows:auto auto auto;gap:8px;align-items:stretch}.tab{display:flex;align-items:center;justify-content:center;text-align:center;min-width:0;overflow-wrap:anywhere;padding:8px 5px;line-height:1.15;font-size:.91rem}.tab[aria-current="page"]{outline:3px solid #fff;outline-offset:-5px}.north{grid-column:2;grid-row:1;background:#354c99;border-color:#b6c5ff}.west{grid-column:1;grid-row:2;background:#82477c;border-color:#f4b3e8}.center{grid-column:2;grid-row:2;display:flex;align-items:center;justify-content:center;color:#e9f2ff;text-align:center;font-size:.88rem;border:2px dashed #6d829e;border-radius:12px;min-height:66px;padding:4px}.east{grid-column:3;grid-row:2;background:#006a64;border-color:#8ee6dc}.south{grid-column:2;grid-row:3;background:#865015;border-color:#ffda83}.panel{border:1px solid #5d789a;border-radius:18px;background:#1d3049;padding:15px;min-height:290px}.panel h1{font-size:1.4rem;margin:0 0 8px}.panel p{color:#dce7f5;margin:0 0 12px}.editor{display:block;width:100%;min-height:160px;resize:vertical;padding:14px;font-size:1.22rem;line-height:1.4;color:#10243c;background:#fff;border:3px solid #bed5f5;border-radius:13px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.actions>*{flex:1 1 135px}.speed{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}.speed label{font-weight:700}.speed input{flex:1 1 160px;accent-color:#ffda73;min-height:38px}.speed output{font-variant-numeric:tabular-nums;min-width:50px}.mode{margin-top:14px;display:flex;align-items:center;gap:10px}.mode select{flex:1;min-width:0;background:#fff;color:#10243c;border:2px solid #c1d5f2;border-radius:10px;padding:7px}.phrase-list{display:grid;gap:10px;margin:12px 0}.phrase{border:1px solid #718db0;border-radius:14px;background:#273d59;padding:9px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.phrase button{min-width:0}.phrase .speak-phrase{min-height:65px;text-align:left;overflow-wrap:anywhere;font-size:1.04rem}.phrase .expand{min-width:88px}.phrase .full{grid-column:1/-1;color:#fff;line-height:1.45;background:#162a43;padding:12px;border-radius:9px;white-space:pre-wrap;overflow-wrap:anywhere}.page-controls{display:flex;gap:8px;align-items:center;justify-content:space-between}.page-controls button{flex:1}.progress{display:flex;align-items:center;gap:8px;justify-content:center;min-height:42px}.progress .track{height:13px;width:min(210px,65%);border:1px solid #d5e5ff;border-radius:20px;display:flex;gap:3px;padding:2px}.progress .tick{flex:1;background:#506783;border-radius:8px}.progress .tick.current{background:#ffda73}.progress.vertical .track{height:78px;width:14px;flex-direction:column}.progress.vertical .tick{min-height:0}.progress .visually{font-size:.85rem;color:#dce7f5}.toolbox{display:flex;gap:8px;flex-wrap:wrap}.toolbox>*{flex:1}.organizer{margin-top:14px;padding:12px;border:1px solid #9db6d4;border-radius:12px}.organizer h2{font-size:1.06rem;margin:0 0 9px}.organizer-item{display:flex;align-items:center;gap:6px;flex-wrap:wrap;border-top:1px solid #5d789a;padding:9px 0}.organizer-item span{flex:1 1 100%;overflow-wrap:anywhere}.organizer-item button{min-height:45px}.savebox{margin-top:12px;padding:12px;border:1px solid #adc4e0;border-radius:12px}.savebox label{display:block;margin:8px 0 5px}.savebox textarea,.savebox select,.savebox input{width:100%;border-radius:9px;border:2px solid #b5cae5;padding:10px;color:#13273c;background:#fff}.savebox textarea{min-height:85px}.savebox .actions button{flex:1}footer{color:#b8c9df;font-size:.83rem;line-height:1.35}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}@media(max-width:370px){.app{padding:8px}.panel{padding:10px}.tab{font-size:.8rem}.phrase .expand{min-width:75px}.cross{gap:5px}}@media(min-width:600px){.app{padding:22px}.tab{font-size:1rem}}
+
+/* B433: pointer contact is not acceptance; accepted clicks get a separate brief outline. */
+button:active:not(:disabled){filter:brightness(1.18);transform:scale(.985)}
+.accepted-press-cue{position:fixed;z-index:60;pointer-events:none;box-sizing:border-box;border:4px solid #ffe48b;border-radius:13px;outline:2px dashed #15263b;outline-offset:-7px;box-shadow:0 0 0 3px #fff9;opacity:1;transition:opacity 130ms ease}
+.accepted-press-cue::after{content:"●";position:absolute;right:2px;top:-14px;font-size:17px;color:#ffe48b;text-shadow:0 1px 2px #122b40}
+@media(prefers-reduced-motion:reduce){button:active:not(:disabled){transform:none}.accepted-press-cue{transition:none}}
+/* Touch dragging over the navigation tabs and phrase buttons must reach our gesture
+   handler instead of being consumed as native page scrolling. Edit forms still scroll. */
+.cross .tab,.phrase-list,.phrase-list button,.page-controls button,.toolbox button,.home-speech button,.home-bottom > button{touch-action:none}
+/* Pull feedback is decorative: directional tab buttons remain the non-gesture alternative. */
+.gesture-cue{position:fixed;z-index:20;left:50%;top:47%;max-width:78vw;min-width:150px;padding:14px 18px;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.88);border:3px solid var(--cue-color,#b6c5ff);border-radius:22px;background:#192e47;color:#fff;box-shadow:0 8px 24px #081421cc;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:750;line-height:1.2;transition:transform 180ms cubic-bezier(.2,.85,.3,1.15),opacity 160ms ease}
+.gesture-cue .cue-arrow{font-size:2rem;line-height:1}.gesture-cue .cue-label{font-size:.96rem;overflow-wrap:anywhere}
+.gesture-cue.is-visible{opacity:1}.gesture-cue.is-tracking{transition:opacity 90ms ease,background-color 100ms ease}.gesture-cue.is-armed{background:#124346;outline:3px solid #ffda73;outline-offset:2px}
+.gesture-cue.is-settling{opacity:0;transform:translate(-50%,-50%) scale(.85)!important}.gesture-cue.is-accepted{opacity:0;transform:translate(-50%,-50%) scale(1.14)!important}
+@media(prefers-reduced-motion:reduce){.gesture-cue{transition:none!important}.gesture-cue.is-tracking{transition:none!important}}
+
+/* B419 responsive composition. No ordinary document scroll; edit/save/expanded overlays may scroll internally. */
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+body{min-height:0}
+.app{height:var(--vvh,100dvh);min-height:0;max-width:760px;padding:calc(6px + env(safe-area-inset-top)) 8px calc(5px + env(safe-area-inset-bottom));gap:5px;overflow:hidden}
+.mast{flex:0 0 auto;min-height:40px}.mast strong{font-size:1.05rem}.mast small{font-size:.7rem}.mast .home-icon{border-radius:50%;width:49px;height:49px;min-width:49px;min-height:49px;padding:0;font-size:2rem;line-height:1}
+.is-home .home-icon{visibility:hidden}
+.notice{min-height:0;max-height:34px;flex:0 0 auto;overflow:hidden;font-size:.78rem;line-height:1.2}
+.communication-layout{display:flex;flex-direction:column;flex:1;min-height:0;min-width:0;position:relative;gap:5px}
+.cross{flex:0 0 auto;display:flex;gap:5px;min-height:44px;grid-template-columns:none;grid-template-rows:none}
+.cross .tab{grid-column:auto;grid-row:auto;flex:1;min-height:44px;min-width:0;padding:4px 3px;font-size:.72rem;line-height:1.1;overflow-wrap:anywhere}
+.cross .center{display:none}
+.cross .north{background:#215bb0;border-color:#8fc4ff}.cross .west{background:#a52d40;border-color:#ff8c95}.cross .east{background:#176b4d;border-color:#80efb4}.cross .south{background:#94531a;border-color:#ffb975}
+.panel{flex:1;min-height:0;min-width:0;padding:8px;border-radius:13px;overflow:hidden;position:relative;display:flex;flex-direction:column;gap:6px}
+.is-home .communication-layout{display:block}
+.is-home .cross{position:absolute;inset:0;z-index:2;display:grid;grid-template-columns:52px minmax(0,1fr) 52px;grid-template-rows:43px minmax(0,1fr) 43px;gap:3px;pointer-events:none}
+.is-home .cross .tab{pointer-events:auto;min-height:0;min-width:0;max-height:none;font-size:.75rem;padding:3px;line-height:1.2}
+.is-home .cross .north{grid-column:2;grid-row:1}.is-home .cross .west{grid-column:1;grid-row:2}.is-home .cross .east{grid-column:3;grid-row:2}.is-home .cross .south{grid-column:2;grid-row:3}
+.is-home .panel{height:calc(100% - 92px);margin:46px 55px;min-height:0;overflow:hidden;padding:7px}
+.home-speech{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;flex:0 0 auto;height:clamp(56px,12vh,90px)}
+.home-speech button{min-height:0;padding:3px;display:flex;align-items:center;justify-content:center;border-width:3px}
+.home-speech svg{height:82%;width:85%;max-width:85px}
+.play-symbol{background:#153f2a;border-color:#6deaa3;color:#66f6a1}.stop-symbol{background:#5b1821;border-color:#ff8894;color:#ff646b}
+.home-speech button{position:relative;transition:box-shadow 90ms ease,border-color 90ms ease}.home-speech button[data-phase="armed"]{border-color:#ffe48b;box-shadow:inset 0 0 0 3px #ffe48b,0 0 0 2px #122b40}.home-speech button[data-phase="armed"]::after{content:"✓";position:absolute;right:8px;top:4px;font-size:1.3rem;color:#ffe48b}.home-speech button[data-phase="stopping"]{border-style:dashed;box-shadow:inset 0 0 0 3px #ffe48b}.home-speech button[data-phase="guarded-idle"]{border-style:dashed;opacity:.85}@media(prefers-reduced-motion:reduce){.home-speech button{transition:none}}
+.editor{flex:1;min-height:0;resize:none;padding:9px;font-size:clamp(1.05rem,3.9vw,1.45rem);line-height:1.25;overflow:auto}
+.home-bottom{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:5px;align-items:center;flex:0 0 auto}
+.home-bottom>button{font-size:.76rem;min-height:43px;padding:5px}
+.home-bottom .speed{margin:0;display:grid;grid-template-columns:1fr auto;gap:2px;min-width:0}
+.home-bottom .speed label{font-size:.65rem;grid-column:1/-1}.home-bottom .speed input{min-width:0;width:100%;min-height:23px;flex:auto}.home-bottom .speed output{font-size:.7rem;min-width:0}
+.edit-overlay,.savebox,.organizer{position:absolute;z-index:5;inset:6px;margin:0;padding:12px;background:#172e49;border:2px solid #a4c9ff;border-radius:13px;overflow:auto;box-shadow:0 6px 18px #0008}
+.edit-overlay h2{font-size:1.08rem;margin:0 0 10px}.edit-overlay p{font-size:.9rem}.edit-overlay .mode{margin-top:8px}
+.is-branch .panel{background:#1d3049}.is-branch[data-direction="left"] .panel{background:#392633}.is-branch[data-direction="right"] .panel{background:#19392f}.is-branch[data-direction="bottom"] .panel{background:#403124}.is-branch[data-direction="top"] .panel{background:#203454}
+.branch-heading{font-size:1.05rem!important;margin:0!important;flex:0 0 auto}
+.phrase-area{flex:1;min-height:0;display:flex;flex-direction:column;gap:3px}
+.phrase-area.axis-vertical{display:grid;grid-template-columns:46px minmax(0,1fr);gap:4px}
+.phrase-list{flex:1;min-height:0;margin:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:4px;overflow:hidden}
+.phrase{min-height:0;position:relative;grid-template-columns:minmax(0,1fr) 68px;padding:3px;gap:3px}
+.phrase .speak-phrase{min-height:0;height:100%;font-size:clamp(.85rem,3.5vw,1.1rem);line-height:1.15;padding:3px 6px}
+.phrase .expand{min-height:0;height:100%;min-width:0;font-size:.7rem;padding:3px}
+.phrase .full{position:fixed;z-index:15;left:8vw;right:8vw;top:25%;bottom:15%;overflow:auto;box-shadow:0 8px 24px #000d;border:2px solid #ffda73;font-size:1.1rem}
+.page-controls,.toolbox{flex:0 0 auto;gap:5px}.page-controls button,.toolbox button{min-height:44px;padding:4px;font-size:.78rem}
+.progress{flex:0 0 auto;min-height:23px;gap:3px}.progress .visually{font-size:.68rem;line-height:1.1}.progress .track{height:11px}
+.progress.vertical{min-height:0;flex-direction:column}.progress.vertical .track{height:60%;max-height:160px}.progress.vertical .visually{writing-mode:vertical-rl;font-size:.64rem}
+.is-branch .cross .tab[aria-current="page"]{outline:3px solid #ffda73}
+@media(max-height:600px){.app{gap:3px}.mast{min-height:32px}.mast strong{font-size:.95rem}.mast small{font-size:.62rem}.mast .home-icon{height:41px;width:41px;min-width:41px;min-height:41px}.cross{min-height:38px}.cross .tab{min-height:38px}.panel{padding:5px;gap:3px}.is-home .panel{padding:4px}.home-speech{height:56px}.home-bottom>button{min-height:38px}.page-controls button,.toolbox button{min-height:44px}.phrase-list{gap:3px}.phrase{padding:2px}}
+@media(max-width:370px){.app{padding-left:4px;padding-right:4px}.is-home .cross{grid-template-columns:45px minmax(0,1fr) 45px}.is-home .panel{margin-left:48px;margin-right:48px}.home-bottom{grid-template-columns:auto auto minmax(0,1fr);gap:2px}.home-bottom>button{font-size:.66rem;padding:3px}}
+@media(max-height:420px) and (min-width:500px){
+ .mast{min-height:28px}.mast small{display:none}.mast .home-icon{height:34px;width:34px;min-width:34px;min-height:34px}
+ .notice{max-height:19px}.cross{min-height:33px}.cross .tab{min-height:33px}
+ .is-branch .panel{display:grid;grid-template-columns:minmax(0,1fr) 156px;grid-template-rows:23px minmax(0,1fr) minmax(0,1fr);gap:3px}
+ .is-branch .branch-heading{grid-column:1/-1;grid-row:1;font-size:.85rem!important}
+ .is-branch .phrase-area{grid-column:1;grid-row:2/4;min-height:0}
+ .is-branch .phrase-list{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:3px}
+ .is-branch .phrase{grid-template-columns:minmax(0,1fr) 44px}
+ .is-branch .phrase .expand{font-size:.58rem;padding:1px}
+ .is-branch .page-controls{grid-column:2;grid-row:2;display:flex;flex-direction:column}
+ .is-branch .toolbox{grid-column:2;grid-row:3;display:flex;flex-direction:row;flex-wrap:wrap}
+ .is-branch .page-controls button{flex:1;min-height:0;width:100%}
+ .is-branch .toolbox button{flex:1 1 45%;min-height:0;padding:1px;font-size:.65rem}
+ .is-branch .progress.vertical .track{height:55%}
+ .is-home .panel{margin-top:37px;margin-bottom:37px;height:calc(100% - 74px)}
+ .is-home .cross{grid-template-rows:34px minmax(0,1fr) 34px}
+ .is-home .home-speech{height:45px}
+}
+@media(min-width:600px){.app{padding:10px}.is-home .panel{margin:46px 60px;height:calc(100% - 92px)}}
+
+/* Phrase request is local and honest: a browser request is not audible confirmation. */
+.phrase .speak-phrase[data-feedback]{outline:3px solid #ffda73;outline-offset:-3px;background:#344c64;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.phrase .speak-phrase[data-feedback="started"]{outline-color:#90f4c2;background:#205342}
+.phrase .speak-phrase[data-feedback="ended"]{outline-color:#b9d9ff;background:#28465e}
+.phrase .speak-phrase[data-feedback="error"]{outline-color:#ff9da7;background:#632d3c}
+.phrase-feedback-label{font-size:.69rem;line-height:1.15;font-weight:800;letter-spacing:.02em;color:#ffe49a}
+.phrase .speak-phrase[data-feedback="started"] .phrase-feedback-label{color:#c1ffe1}
+@media(prefers-reduced-motion:reduce){.phrase .speak-phrase[data-feedback]{transition:none}}
+/* WQ431: page 1 starts at the Home-side edge. Deeper left/up pages
+   advance physically toward the left/top; right/bottom remain forward. */
+.is-branch[data-direction="left"] .progress .track{flex-direction:row-reverse}
+.is-branch[data-direction="top"] .progress.vertical .track{flex-direction:column-reverse}
+
+/* B435: in-app Web Speech voice selection, not an Android system-settings shortcut. */
+.edit-overlay #edit-close{position:sticky;top:0;z-index:2;width:100%;margin:0 0 10px;background:#354e6e;border-color:#ffda73}
+.voice-settings{display:grid;gap:7px;margin:12px 0;padding:10px;border:1px solid #a4c9ff;border-radius:11px}
+.voice-settings label{font-weight:750}.voice-settings select{width:100%;min-width:0;background:#fff;color:#13273c;border:2px solid #b5cae5;border-radius:9px;padding:8px}
+.voice-settings .voice-actions{display:flex;gap:8px;flex-wrap:wrap}.voice-settings .voice-actions button{flex:1 1 130px}
+.voice-settings p{font-size:.85rem;line-height:1.35;margin:0;color:#dce7f5}
+
+/* B436: separate phrase text and order editing, with large touch reorder handles. */
+.organizer .edit-switch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 12px}
+.organizer .edit-switch button[aria-pressed="true"]{background:#ffe0a0;color:#152b43;border-color:#fff}
+.organizer .organizer-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;padding:10px 4px;border-bottom:1px solid #7896b3}
+.organizer .organizer-item textarea{width:100%;min-height:76px;resize:vertical;font-size:1.08rem;background:#fff;color:#152b43;border-radius:8px;padding:8px}
+.organizer .organizer-item .item-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.organizer .organizer-item .item-actions button{min-height:52px;min-width:88px;padding:7px}
+.organizer .organizer-item .item-actions .move-handle{min-width:118px;touch-action:none;background:#385a7b;border:3px solid #ffda73}
+.organizer .organizer-item.drag-source{outline:3px dashed #ffe0a0;background:#395472}
+.organizer .organizer-item.drag-target{outline:3px solid #95e9be;background:#235345}
+.organizer .organizer-item .order-label{overflow-wrap:anywhere;min-width:0;font-size:1rem}
+.organizer .order-help{line-height:1.4;font-size:.9rem}
+@media(max-width:400px){.organizer .organizer-item{grid-template-columns:1fr}.organizer .organizer-item .item-actions{justify-content:stretch}.organizer .organizer-item .item-actions button{flex:1 1 40%}}
+
+/* B437: in-app help uses a real modal, not the communication panel or browser navigation.
+   The normal communication page remains fixed-height; only guide text scrolls. */
+.mast-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+.mast-actions .help-button{min-width:92px;min-height:49px;padding:6px;font-size:.84rem;border-color:#ffe49a;background:#324d69}
+.mast>div:first-child{min-width:0}.mast strong{overflow-wrap:anywhere}
+.guide-dialog{position:fixed;inset:0;margin:auto;width:min(650px,calc(100vw - 16px));max-width:calc(100vw - 16px);height:min(760px,calc(var(--vvh,100dvh) - 18px));max-height:calc(var(--vvh,100dvh) - 18px);padding:0;border:3px solid #ffe49a;border-radius:16px;background:#152b43;color:#fff;box-shadow:0 12px 40px #000a;overflow:hidden}
+.guide-dialog::backdrop{background:rgba(0,0,0,.8)}
+.guide-shell{height:100%;min-height:0;display:flex;flex-direction:column;padding:12px;gap:9px}
+.guide-top{display:flex;align-items:center;gap:8px;justify-content:space-between;flex:0 0 auto}
+.guide-top h2{font-size:1.25rem;line-height:1.2;margin:0}.guide-top button{min-width:115px;background:#405c79;border-color:#ffe49a}
+.guide-position{font-size:1rem;margin:0;color:#ffdf94;font-weight:750;flex:0 0 auto}
+.guide-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 5px 18px;line-height:1.48;font-size:1.08rem;scrollbar-gutter:stable}
+.guide-content h3{font-size:1.35rem;margin:0 0 13px;color:#ffdf94;line-height:1.3}
+.guide-content p{margin:0 0 14px}.guide-content ul{padding-left:24px;margin:8px 0 16px}.guide-content li{margin:0 0 10px}
+.guide-content .guide-note{padding:10px 12px;border-left:4px solid #ffdf94;background:#263f5a;border-radius:6px}
+.guide-nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:0 0 auto;padding-top:8px;border-top:1px solid #7898b7}
+.guide-nav button{min-height:55px;font-size:1.05rem}.guide-nav button:disabled{opacity:.45}
+@media(max-width:360px){.mast-actions .help-button{min-width:77px;font-size:.74rem}.guide-shell{padding:8px}.guide-content{font-size:1rem}.guide-top h2{font-size:1.12rem}.guide-top button{min-width:100px}}
+
+/* PWA: optional local-only phrase backup and restoration in Home > Edit. */
+.backup-controls{display:grid;gap:9px;margin-top:14px;padding:12px;border:1px solid #99c9b7;border-radius:11px;background:#1f3a43}
+.backup-controls h3{font-size:1.05rem;margin:0;color:#fff}
+.backup-controls p{font-size:.87rem;line-height:1.4;margin:0;color:#e6f3ed}
+.backup-controls .backup-buttons{display:flex;gap:8px;flex-wrap:wrap}
+.backup-controls .backup-buttons button{flex:1 1 145px;min-height:54px;border-color:#bce9d2}
+</style>
+<!-- Installable GitHub Pages wrapper; the underlying v0.2.3 Standard app is unchanged. -->
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<meta name="application-name" content="Cross X Speak">
+<meta name="apple-mobile-web-app-title" content="Cross X Speak">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="Offline-capable phrase communication with four-direction navigation.">
+</head>
+<body>
+<main class="app is-home" id="app">
+<header class="mast"><div><strong>CrossXSpeak</strong><small>Standard · v0.2.2 source trial</small></div><div class="mast-actions"><button id="guide-open" class="help-button" type="button" aria-haspopup="dialog" aria-controls="guide-dialog">How to Use</button><button id="home" class="home-icon" type="button" aria-label="Return Home" title="Home">⌂</button></div></header>
+<div id="notice" class="notice" role="status" aria-live="polite"></div>
+<div class="communication-layout"><nav class="cross" aria-label="Directional phrase collections">
+<button id="tab-top" class="tab north" data-go="top" type="button"></button>
+<button id="tab-left" class="tab west" data-go="left" type="button"></button>
+<div class="center" id="location" aria-live="polite">Home</div>
+<button id="tab-right" class="tab east" data-go="right" type="button"></button>
+<button id="tab-bottom" class="tab south" data-go="bottom" type="button"></button>
+</nav>
+<section class="panel" id="screen" aria-label="Communication area"></section></div>
+<footer class="sr-only">Browser speech/voices and saved phrases depend on this device profile. Not an Android release.</footer>
+</main>
+<dialog id="guide-dialog" class="guide-dialog" aria-labelledby="guide-title" aria-describedby="guide-position">
+ <div class="guide-shell">
+ <header class="guide-top"><h2 id="guide-title">How to Use</h2><button id="guide-close" type="button">Close guide</button></header>
+ <p id="guide-position" class="guide-position" aria-live="polite"></p>
+ <section id="guide-content" class="guide-content" aria-label="Guide instructions"></section>
+ <nav class="guide-nav" aria-label="Guide pages"><button id="guide-prev" type="button">Previous</button><button id="guide-next" type="button">Next</button></nav>
+ </div>
+</dialog>
+<script>
+(()=>{'use strict';
+const KEY='crossxspeak.v1';const PAGE_SIZE=4;const DIRS=['top','right','bottom','left'];
+const labels={top:'Above',right:'Right',bottom:'Below',left:'Left'};
+const examples={top:['Hello.','Please give me a moment.','Could you repeat that?','Thank you.','I would like to add something.'],right:['Yes.','No.'],bottom:['I need a break.'],left:['Can you help me?']};
+const initial=()=>({names:{...labels},phrases:Object.fromEntries(DIRS.map(d=>[d,examples[d].map((text,i)=>({id:d+'-'+i,text}))])),location:'home',page:0,draft:'',rate:1,mode:'speak',voicePreference:null});
+let data=initial(),expanded=null,organizing=false,organizerMode="text",saveOpen=false,editOpen=false,storageAvailable=true,gestureStart=null;
+// These are transient interaction states, never persisted as speech or phrase history.
+let navigationTap=null,phraseFeedback=null,phraseFeedbackTimer=null;
+function clearPhraseFeedback(){if(phraseFeedbackTimer!==null){clearTimeout(phraseFeedbackTimer);phraseFeedbackTimer=null;}phraseFeedback=null;paintPhraseFeedback();}
+function paintPhraseFeedback(){if(!screen)return;screen.querySelectorAll('.speak-phrase').forEach(b=>{
+ const active=phraseFeedback&&phraseFeedback.dir===data.location&&phraseFeedback.id===b.dataset.activate;
+ const old=b.querySelector('.phrase-feedback-label');if(old)old.remove();b.removeAttribute('data-feedback');b.removeAttribute('aria-label');
+ if(!active)return;
+ const phase=phraseFeedback.phase;const words={requested:'✓ Request sent',started:'▶ Browser started',ended:'✓ Browser ended',error:'! Browser error'};
+ b.dataset.feedback=phase;b.setAttribute('aria-label',b.textContent+'. '+words[phase]);
+ const label=document.createElement('span');label.className='phrase-feedback-label';label.textContent=words[phase];b.appendChild(label);
+ });}
+function updatePhraseFeedback(epoch,phase){if(!phraseFeedback||phraseFeedback.epoch!==epoch)return;
+ phraseFeedback.phase=phase;paintPhraseFeedback();if(phase==='ended'||phase==='error'){
+  if(phraseFeedbackTimer!==null)clearTimeout(phraseFeedbackTimer);
+  phraseFeedbackTimer=setTimeout(()=>{phraseFeedbackTimer=null;if(phraseFeedback&&phraseFeedback.epoch===epoch)clearPhraseFeedback();},900);
+ }}
+// Only a pointer echo landing on Save at nearly the same screen coordinate is ignored.
+// Other buttons (especially Stop) are not globally debounced.
+function ignoreNavigationEcho(e){if(!navigationTap||e.detail===0)return false;
+ const n=navigationTap;if(performance.now()>n.until||n.dir!==data.location)return false;
+ return Math.hypot(e.clientX-n.x,e.clientY-n.y)<=34;
+}
+const screen=document.getElementById('screen'),notice=document.getElementById('notice');
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function load(){try{const raw=localStorage.getItem(KEY);if(!raw)return;const x=JSON.parse(raw);if(!x||!x.phrases||!x.names)return;for(const d of DIRS){if(!Array.isArray(x.phrases[d]))return;x.phrases[d]=x.phrases[d].filter(p=>p&&typeof p.text==='string'&&typeof p.id==='string');x.names[d]=String(x.names[d]||labels[d]).slice(0,30);}data={...initial(),...x};data.location=DIRS.includes(x.location)?x.location:'home';data.page=Math.max(0,Math.min(Number.isInteger(x.page)?x.page:0,pageCount(data.location)-1));data.rate=Number.isFinite(+x.rate)?Math.max(.6,Math.min(1.5,+x.rate)):1;data.mode=x.mode==='insert'?'insert':'speak';data.draft=typeof x.draft==='string'?x.draft:'';data.voicePreference=validVoicePreference(x.voicePreference);}catch(e){storageAvailable=false;}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));storageAvailable=true;return true;}catch(e){storageAvailable=false;status('Browser storage unavailable: changes may not survive closing.');return false;}}
+// Only browser-exposed voices are selectable; voice gender is not a standard Web Speech field.
+// A preference is an identity hint, not a promise that a device/voice remains installed.
+let availableVoices=[];
+function validVoicePreference(v){if(!v||typeof v!=='object'||Array.isArray(v))return null;
+ if(typeof v.uri!=='string'||typeof v.name!=='string'||typeof v.lang!=='string')return null;
+ return {uri:v.uri.slice(0,500),name:v.name.slice(0,200),lang:v.lang.slice(0,60)};}
+function voiceIdentity(v){return {uri:String(v.voiceURI||'').slice(0,500),name:String(v.name||'').slice(0,200),lang:String(v.lang||'').slice(0,60)};}
+function selectedVoice(){const p=data.voicePreference;if(!p)return null;
+ return availableVoices.find(v=>{const i=voiceIdentity(v);return i.uri===p.uri&&i.name===p.name&&i.lang===p.lang;})||
+ availableVoices.find(v=>{const i=voiceIdentity(v);return i.name===p.name&&i.lang===p.lang;})||null;}
+function refreshVoices(){try{const synth=window.speechSynthesis;
+ availableVoices=synth&&typeof synth.getVoices==='function'?Array.from(synth.getVoices()||[]).filter(v=>v&&typeof v.name==='string'):[];
+ }catch(e){availableVoices=[];}
+ paintVoicePicker();return availableVoices.length;}
+function paintVoicePicker(){const choice=document.getElementById('voice-choice');if(!choice)return;
+ const chosen=selectedVoice();choice.innerHTML='<option value="default">Browser default voice</option>'+availableVoices.map((v,i)=>
+ `<option value="${i}">${escapeHTML(v.name)} (${escapeHTML(v.lang||'unknown language')})${v.default?' — default':''}</option>`).join('');
+ if(chosen)choice.value=String(availableVoices.indexOf(chosen));else choice.value='default';
+ const note=document.getElementById('voice-note');if(note)note.textContent=
+ data.voicePreference&&!chosen?'Saved voice is not available here. Browser default will be used; preference retained.':
+ availableVoices.length?'Choose a voice by name and language; use Test Voice to listen.':'No voices listed yet. Refresh or use browser default. Speech may still work.';
+}
+function voiceControls(){return `<div class="voice-settings"><label for="voice-choice">Speaking voice</label><select id="voice-choice" aria-label="Speaking voice"><option value="default">Browser default voice</option></select><div class="voice-actions"><button id="voice-test" type="button">Test Voice</button><button id="voice-refresh" type="button">Refresh voices</button></div><p id="voice-note">Voices depend on this browser and device.</p><p>System TTS voice settings cannot reliably be opened from a web page. On Android, look under Settings → Accessibility → Text-to-speech output (names vary).</p></div>`;}
+function wireVoiceControls(){const choice=document.getElementById('voice-choice');if(!choice)return;
+ choice.onchange=()=>{const i=Number(choice.value);data.voicePreference=choice.value==='default'?null:(availableVoices[i]?voiceIdentity(availableVoices[i]):null);
+ const persisted=save();paintVoicePicker();if(persisted)status(data.voicePreference?'Voice preference saved for this browser.':'Browser default voice selected.');};
+ document.getElementById('voice-refresh').onclick=()=>{const n=refreshVoices();status(n?n+' browser voices listed.':'No voices reported by this browser yet.');};
+ document.getElementById('voice-test').onclick=e=>{if(!speak('This is a voice test.',false,null))e.__cxRejected=true;};
+ refreshVoices();}
+function status(s){notice.textContent=s;}
+function pageCount(dir){return dir==='home'?1:Math.max(1,Math.ceil(data.phrases[dir].length/PAGE_SIZE));}
+// A single speech epoch owns browser callbacks. A late event from an older
+// utterance must never recolor the Home button or report a newer session ended.
+let speechEpoch=0,activeUtterance=null,terminalSpeechEpoch=null;
+// A terminal callback is final for its utterance: late start/end/error must not
+// overwrite its result, even if the speech epoch is still current.
+const homeSpeech={phase:'idle',guardUntil:0,timer:null,stopEpoch:null,stopTimer:null,stopChecks:0};
+const PLAY_ICON='<svg aria-hidden="true" viewBox="0 0 100 100"><path d="M22 10 L90 50 L22 90 Z" fill="currentColor"/></svg>';
+const STOP_ICON='<svg aria-hidden="true" viewBox="0 0 100 100"><rect x="15" y="15" width="70" height="70" rx="5" fill="currentColor"/></svg>';
+function clearHomeTimers(){if(homeSpeech.timer!==null){clearTimeout(homeSpeech.timer);homeSpeech.timer=null;}if(homeSpeech.stopTimer!==null){clearTimeout(homeSpeech.stopTimer);homeSpeech.stopTimer=null;}}
+function updateHomeSpeechButton(){const b=document.getElementById('home-speech-button');if(!b)return;
+ const stopping=homeSpeech.phase==='stop'||homeSpeech.phase==='stopping';
+ b.className=stopping?'stop-symbol':'play-symbol';b.dataset.phase=homeSpeech.phase==='idle'&&performance.now()<homeSpeech.guardUntil?'guarded-idle':homeSpeech.phase;
+ b.innerHTML=stopping?STOP_ICON:PLAY_ICON;
+ b.setAttribute('aria-label',stopping?(homeSpeech.phase==='stopping'?'Stop requested; press to retry':'Stop speaking'):'Speak typed text');
+ b.title=stopping?'Stop speaking':'Speak typed text';
+ b.setAttribute('aria-disabled',(homeSpeech.phase==='armed'||(homeSpeech.phase==='idle'&&performance.now()<homeSpeech.guardUntil))?'true':'false');
+}
+function resetHomeSpeech(keepGuard=false){clearHomeTimers();homeSpeech.phase='idle';homeSpeech.stopEpoch=null;homeSpeech.stopChecks=0;if(!keepGuard)homeSpeech.guardUntil=0;updateHomeSpeechButton();
+ if(keepGuard)scheduleGuardRelease();
+}
+function scheduleGuardRelease(){const remaining=homeSpeech.guardUntil-performance.now();
+ if(remaining<=0){updateHomeSpeechButton();return;}
+ homeSpeech.timer=setTimeout(()=>{homeSpeech.timer=null;if(homeSpeech.phase==='idle')scheduleGuardRelease();},Math.max(1,Math.ceil(remaining)));
+}
+function speechEnded(epoch,kind){
+ if(homeSpeech.phase==='stopping'&&homeSpeech.stopEpoch===epoch){if(terminalSpeechEpoch===epoch)return;terminalSpeechEpoch=epoch;resetHomeSpeech();status('Browser reported speech ended after Stop.');return;}
+ if(epoch!==speechEpoch||terminalSpeechEpoch===epoch)return;
+ terminalSpeechEpoch=epoch;
+ updatePhraseFeedback(epoch,kind==='error'?'error':'ended');
+ activeUtterance=null;
+ resetHomeSpeech(true); // An early finish does not allow a second tap inside 500ms.
+ status(kind==='error'?'Browser reported a speech error.':'Browser reported speech ended.');
+}
+function stopSpeech(report=false){
+ const oldEpoch=speechEpoch,oldPhase=homeSpeech.phase;
+ // Some Web Speech implementations may deliver onend *inside* cancel().
+ // Publish Stop intent first, so that synchronous terminal callback is not lost.
+ const awaitStop=report&&oldPhase==='stop';
+ speechEpoch++;clearHomeTimers();
+ if(awaitStop){homeSpeech.phase='stopping';homeSpeech.stopEpoch=oldEpoch;homeSpeech.stopChecks=0;updateHomeSpeechButton();}
+ try{if('speechSynthesis'in window)window.speechSynthesis.cancel();}
+ catch(e){
+  // If cancel both delivered a terminal event and threw, keep the observed end.
+  if(awaitStop&&terminalSpeechEpoch===oldEpoch){activeUtterance=null;clearPhraseFeedback();return true;}
+  speechEpoch=oldEpoch;
+  if(awaitStop){homeSpeech.phase=oldPhase;homeSpeech.stopEpoch=null;homeSpeech.stopChecks=0;updateHomeSpeechButton();}
+  if(homeSpeech.phase==='armed')scheduleHomeStop(oldEpoch);
+  status('Could not stop browser speech.');return false;
+ }
+ activeUtterance=null;clearPhraseFeedback();
+ if(awaitStop){
+  // The synchronous terminal callback may already have reset the Home button.
+  if(terminalSpeechEpoch===oldEpoch)return true;
+  status('Stop requested; waiting for browser confirmation.');
+  checkStopState(oldEpoch);return true;
+ }
+ resetHomeSpeech();if(report)status('Speech stop requested; audible stop not confirmed.');return true;
+}
+function checkStopState(epoch){
+ if(homeSpeech.phase!=='stopping'||homeSpeech.stopEpoch!==epoch)return;
+ const synth=window.speechSynthesis;
+ if(synth&&typeof synth.speaking==='boolean'&&typeof synth.pending==='boolean'&&!synth.speaking&&!synth.pending){resetHomeSpeech();status('Browser reports speech stopped.');return;}
+ // A delayed or absent Web Speech event is not evidence of cancellation.
+ if(++homeSpeech.stopChecks>8){status('Stop requested; browser speech state remains unconfirmed.');return;}
+ homeSpeech.stopTimer=setTimeout(()=>{homeSpeech.stopTimer=null;if(homeSpeech.phase==='stopping'&&homeSpeech.stopEpoch===epoch)checkStopState(epoch);},250);
+}
+function speak(text,fromHome=false,phraseId=null){
+ if(!String(text).trim()){status('Type or choose a phrase first.');return false;}
+ if(!('speechSynthesis'in window)||!('SpeechSynthesisUtterance'in window)){status('Speech is not available in this browser.');return false;}
+ if(!stopSpeech())return false;
+ const epoch=++speechEpoch;terminalSpeechEpoch=null;
+ if(fromHome){homeSpeech.phase='armed';homeSpeech.guardUntil=performance.now()+500;updateHomeSpeechButton();}
+ try{
+  const u=new SpeechSynthesisUtterance(text);u.rate=data.rate;
+  // If the chosen voice disappeared, use browser default without erasing the saved preference.
+  const v=selectedVoice();if(v)u.voice=v;activeUtterance=u;
+  u.onstart=()=>{if(epoch===speechEpoch&&terminalSpeechEpoch!==epoch){updatePhraseFeedback(epoch,'started');status('Browser reported speech started.');}};
+  u.onend=()=>speechEnded(epoch,'end');u.onerror=()=>speechEnded(epoch,'error');
+  status('Speech requested; browser may start with delay.');
+  if(phraseId){phraseFeedback={dir:data.location,id:phraseId,epoch,phase:'requested'};paintPhraseFeedback();}
+  window.speechSynthesis.speak(u);
+  if(fromHome&&homeSpeech.phase==='armed')scheduleHomeStop(epoch);
+  return true;
+ }catch(e){if(epoch===speechEpoch){speechEpoch++;activeUtterance=null;clearPhraseFeedback();resetHomeSpeech();status('Speech failed in this browser.');}return false;}
+}
+function scheduleHomeStop(epoch){
+ const remaining=Math.max(0,homeSpeech.guardUntil-performance.now());
+ homeSpeech.timer=setTimeout(()=>{homeSpeech.timer=null;
+  if(epoch!==speechEpoch||homeSpeech.phase!=='armed')return;
+  if(performance.now()<homeSpeech.guardUntil){scheduleHomeStop(epoch);return;}
+  homeSpeech.phase='stop';updateHomeSpeechButton();
+ },remaining);
+}
+function homeSpeechPress(e){
+ const now=performance.now();
+ // Guard is based on acceptance time, not when a delayed timer happened to run.
+ if(now<homeSpeech.guardUntil){if(e)e.__cxRejected=true;return;}
+ if(homeSpeech.phase==='armed'){homeSpeech.phase='stop';updateHomeSpeechButton();}
+ if(homeSpeech.phase==='stop'||homeSpeech.phase==='stopping'){if(!stopSpeech(true)&&e)e.__cxRejected=true;return;}
+ if(!speak(data.draft,true)&&e)e.__cxRejected=true;
+}
+function navigate(dir,page=0){navigationTap=null;stopSpeech();data.location=dir;data.page=Math.max(0,Math.min(page,pageCount(dir)-1));expanded=null;organizing=false;saveOpen=false;editOpen=false;save();render();}
+// Owner's 2026-11-15 physical-phone correction: the finger pulls content in the
+// opposite direction to the destination: right-to-left opens Right, and
+// up-to-down opens Above. Reverse slides back ONE page, then Home from page 1.
+// Perpendicular swipe always switches to the other collection's page 1.
+const SWIPE_TO_BRANCH={up:'bottom',down:'top',left:'right',right:'left'};
+const OPPOSITE_BRANCH={top:'bottom',bottom:'top',left:'right',right:'left'};
+function directionalInput(step){
+ const target=SWIPE_TO_BRANCH[step];if(!target)return;
+ if(data.location==='home'){navigate(target,0);return;}
+ if(target===data.location){navigate(target,data.page+1);return;}
+ if(target===OPPOSITE_BRANCH[data.location]){
+  if(data.page>0)navigate(data.location,data.page-1);
+  else navigate('home');
+  return;
+ }
+ navigate(target,0);
+}
+function moveSwipe(dx,dy){const horiz=Math.abs(dx)>Math.abs(dy);const step=horiz?(dx<0?'left':'right'):(dy<0?'up':'down');directionalInput(step);}
+function render(){
+ document.getElementById('app').classList.toggle('is-home',data.location==='home');
+ document.getElementById('app').classList.toggle('is-branch',data.location!=='home');
+ document.getElementById('app').dataset.direction=data.location;
+ for(const d of DIRS){const tab=document.getElementById('tab-'+d);tab.textContent={top:'↑ ',right:'→ ',bottom:'↓ ',left:'← '}[d]+data.names[d];tab.setAttribute('aria-label',d+' — '+data.names[d]+' collection');if(data.location===d)tab.setAttribute('aria-current','page');else tab.removeAttribute('aria-current');}
+ document.getElementById('location').textContent=data.location==='home'?'Home':data.names[data.location];
+ if(data.location==='home')renderHome();else renderBranch();
+}
+function speechControls(){return `<div class="speed"><label for="rate">Speech speed</label><input id="rate" type="range" min="0.6" max="1.5" step="0.1" value="${data.rate}" aria-label="Speech speed"><output id="rate-output">${data.rate.toFixed(1)}×</output></div>`;}
+function renderHome(){screen.innerHTML=`<h1 class="sr-only">Say something</h1>
+ <div class="home-speech"><button class="play-symbol" id="home-speech-button" type="button" aria-label="Speak typed text" title="Speak typed text">${PLAY_ICON}</button></div>
+ <label class="sr-only" for="draft">Message to speak</label><textarea class="editor" id="draft" spellcheck="true" autocomplete="on" autocapitalize="sentences" placeholder="Type your message…">${escapeHTML(data.draft)}</textarea>
+ <div class="home-bottom"><button id="edit-open" type="button" aria-expanded="${editOpen}">Edit</button><button id="save-open" type="button">Save phrase</button>${speechControls()}</div>
+ <div id="edit-slot"></div><div id="save-slot"></div>`;
+ document.getElementById('draft').addEventListener('input',e=>{data.draft=e.target.value;save();});
+ document.getElementById('home-speech-button').onclick=homeSpeechPress;updateHomeSpeechButton();
+ document.getElementById('save-open').onclick=()=>{saveOpen=!saveOpen;editOpen=false;renderHome();};
+ document.getElementById('edit-open').onclick=()=>{editOpen=!editOpen;saveOpen=false;renderHome();};
+ wireShared();renderSaveBox();renderEditBox();
+}
+function renderEditBox(){const slot=document.getElementById('edit-slot');if(!slot||!editOpen)return;
+ slot.innerHTML=`<div class="edit-overlay" role="region" aria-label="Edit options"><button id="edit-close" type="button">Close editing</button><h2>Communication settings</h2>${modeControls()}<p>Choose whether tapping saved phrases speaks immediately or inserts them into the Home editor.</p>${voiceControls()}${backupControls()}</div>`;
+ document.getElementById('edit-close').onclick=()=>{editOpen=false;renderHome();};wireShared();wireVoiceControls();wireBackupControls();}
+// Phrase backups are explicit user-chosen local JSON files; never uploaded to the website.
+const BACKUP_KIND='crossxspeak-standard-backup';
+function backupControls(){return `<section class="backup-controls" aria-label="Phrase backup and restore"><h3>Back up your phrases</h3><p>Keep a copy outside the browser. A separate browser or installed home-screen app does not protect your phrases if site data is cleared.</p><div class="backup-buttons"><button id="backup-export" type="button">Download backup</button><button id="backup-import" type="button">Restore backup</button></div><input type="file" id="backup-file-input" accept=".json,application/json" hidden><p>Restoring replaces all phrases and settings in this app. Download your current backup first.</p></section>`;}
+function makeBackup(){return {format:BACKUP_KIND,version:1,exportedAt:new Date().toISOString(),data:JSON.parse(JSON.stringify(data))};}
+function exportBackup(){
+ try{
+  const contents=JSON.stringify(makeBackup(),null,2)+'\n';
+  const blob=new Blob([contents],{type:'application/json'});
+  const href=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=href;a.download='CrossXSpeak_Standard_Backup_'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),60000);
+  status('Backup download requested. Keep the JSON file in a safe place outside the browser.');
+ }catch(err){status('Backup could not be downloaded.');window.alert('Could not download the backup: '+err.message);}
+}
+function validateBackupFile(obj){
+ if(!obj||obj.format!==BACKUP_KIND||obj.version!==1||!obj.data||typeof obj.data!=='object'||Array.isArray(obj.data))throw Error('This is not a supported Cross X Speak Standard backup.');
+ const src=obj.data;
+ if(!src.names||!src.phrases||typeof src.names!=='object'||typeof src.phrases!=='object')throw Error('Missing phrase collections.');
+ const clean=initial();
+ for(const dir of DIRS){
+  const items=src.phrases[dir],name=src.names[dir];
+  if(!Array.isArray(items)||items.length>5000||typeof name!=='string'||name.length>100)throw Error('Invalid '+labels[dir]+' collection.');
+  const ids=new Set();
+  clean.phrases[dir]=items.map(p=>{
+   if(!p||typeof p!=='object'||typeof p.id!=='string'||!p.id||p.id.length>500||typeof p.text!=='string'||p.text.length>10000||ids.has(p.id))throw Error('Invalid phrase in '+labels[dir]+'.');
+   ids.add(p.id);return {id:p.id,text:p.text};
+  });
+  clean.names[dir]=name.slice(0,30)||labels[dir];
+ }
+ if(src.draft!==undefined&&(typeof src.draft!=='string'||src.draft.length>500000))throw Error('Invalid saved draft.');
+ clean.draft=src.draft||'';
+ clean.mode=src.mode==='insert'?'insert':'speak';
+ clean.rate=Number.isFinite(Number(src.rate))?Math.max(.6,Math.min(1.5,Number(src.rate))):1;
+ clean.voicePreference=validVoicePreference(src.voicePreference);
+ // Don't restore an old page location or resume speech after an import.
+ clean.location='home';clean.page=0;
+ return clean;
+}
+function wireBackupControls(){
+ const fileInput=document.getElementById('backup-file-input');
+ if(!fileInput)return;
+ document.getElementById('backup-export').onclick=exportBackup;
+ document.getElementById('backup-import').onclick=()=>fileInput.click();
+ fileInput.onchange=async()=>{
+  const file=fileInput.files&&fileInput.files[0];fileInput.value='';if(!file)return;
+  if(file.size>6*1024*1024){window.alert('Backup is too large (maximum 6 MB).');return;}
+  let restored;
+  try{restored=validateBackupFile(JSON.parse(await file.text()));}
+  catch(err){window.alert('Backup not loaded: '+err.message);return;}
+  const n=DIRS.reduce((count,dir)=>count+restored.phrases[dir].length,0);
+  if(!window.confirm('Restore '+n+' phrases? This REPLACES all current phrases and settings in Cross X Speak. Download a backup first if you want to keep them.'))return;
+  try{localStorage.setItem(KEY,JSON.stringify(restored));}
+  catch(err){storageAvailable=false;window.alert('Restore could not be saved in browser storage. Your existing phrases were not changed.');return;}
+  stopSpeech();data=restored;storageAvailable=true;saveOpen=false;editOpen=false;organizing=false;expanded=null;render();
+  status('Restored '+n+' phrases. Your backup file is unchanged.');
+ };
+}
+function modeControls(){return `<div class="mode"><label for="mode">Saved phrases</label><select id="mode"><option value="speak" ${data.mode==='speak'?'selected':''}>Speak immediately</option><option value="insert" ${data.mode==='insert'?'selected':''}>Insert to edit</option></select></div>`;}
+function wireShared(){const rate=document.getElementById('rate');if(rate)rate.oninput=e=>{data.rate=+e.target.value;document.getElementById('rate-output').textContent=data.rate.toFixed(1)+'×';save();};const mode=document.getElementById('mode');if(mode)mode.onchange=e=>{data.mode=e.target.value;save();status(data.mode==='insert'?'Phrases will be inserted for editing.':'Phrases will speak immediately.');};}
+function renderSaveBox(){const slot=document.getElementById('save-slot');if(!slot)return;if(!saveOpen){slot.innerHTML='';return;}slot.innerHTML=`<div class="savebox"><label for="new-phrase">Phrase text</label><textarea id="new-phrase">${escapeHTML(data.draft)}</textarea><label for="save-dir">Save in collection</label><select id="save-dir">${DIRS.map(d=>`<option value="${d}" ${data.location===d?'selected':''}>${escapeHTML(data.names[d])}</option>`).join('')}</select><div class="actions"><button class="primary" id="save-confirm">Save phrase</button><button id="save-cancel">Cancel</button></div></div>`;document.getElementById('save-cancel').onclick=()=>{saveOpen=false;renderSaveBox();};document.getElementById('save-confirm').onclick=e=>{const txt=document.getElementById('new-phrase').value.trim(),dir=document.getElementById('save-dir').value;if(!txt){e.__cxRejected=true;status('Enter phrase text before saving.');return;}data.phrases[dir].push({id:cryptoId(),text:txt});saveOpen=false;const persisted=save();if(data.location===dir)renderBranch();else renderSaveBox();if(persisted)status('Saved in '+data.names[dir]+'.');else e.__cxRejected=true;};}
+function cryptoId(){return 'p'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9);}
+function progress(){const count=pageCount(data.location),vertical=['top','bottom'].includes(data.location);return `<div class="progress ${vertical?'vertical':''}" role="group" aria-label="Collection position"><div class="track" aria-hidden="true">${Array.from({length:count},(_,i)=>`<span class="tick ${i===data.page?'current':''}"></span>`).join('')}</div><span class="visually">Page ${data.page+1} of ${count}</span></div>`;}
+function renderBranch(){const dir=data.location,items=data.phrases[dir].slice(data.page*PAGE_SIZE,(data.page+1)*PAGE_SIZE);screen.innerHTML=`<h1 class="branch-heading">${escapeHTML(data.names[dir])}</h1><div class="phrase-area ${['top','bottom'].includes(dir)?'axis-vertical':'axis-horizontal'}">${['top','bottom'].includes(dir)?progress():''}<div class="phrase-list">${items.length?items.map(p=>`<div class="phrase" data-id="${escapeHTML(p.id)}"><button class="speak-phrase" type="button" data-activate="${escapeHTML(p.id)}">${escapeHTML(p.text.length>85?p.text.slice(0,85)+'…':p.text)}</button><button class="expand small" type="button" data-expand="${escapeHTML(p.id)}" aria-expanded="${expanded===p.id}">${expanded===p.id?'Collapse':'Expand'}</button>${expanded===p.id?`<div class="full">${escapeHTML(p.text)}</div>`:''}</div>`).join(''):'<p>No phrases here yet. Use Save phrase to add one.</p>'}</div>${['left','right'].includes(dir)?progress():''}</div><div class="page-controls"><button id="page-prev" ${data.page===0?'disabled':''}>Nearer Home</button><button id="page-next" ${data.page>=pageCount(dir)-1?'disabled':''}>Farther out</button></div><div class="toolbox"><button class="stop" id="stop">Stop speech</button><button id="save-open">Save phrase</button><button id="organize">${organizing?'Close organizer':'Edit'}</button></div><div id="save-slot"></div><div id="organize-slot"></div>`;
+paintPhraseFeedback();screen.querySelectorAll('[data-activate]').forEach(b=>b.onclick=e=>{if(!activate(b.dataset.activate))e.__cxRejected=true;});screen.querySelectorAll('[data-expand]').forEach(b=>b.onclick=()=>{const id=b.dataset.expand;expanded=expanded===id?null:id;renderBranch();const replacement=Array.from(screen.querySelectorAll('[data-expand]')).find(x=>x.dataset.expand===id);if(replacement)replacement.focus();});document.getElementById('page-prev').onclick=()=>navigate(dir,data.page-1);document.getElementById('page-next').onclick=()=>navigate(dir,data.page+1);document.getElementById('stop').onclick=e=>{if(!stopSpeech(true))e.__cxRejected=true;};document.getElementById('save-open').onclick=e=>{if(ignoreNavigationEcho(e)){e.__cxRejected=true;status('Repeat navigation tap ignored; Save phrase not opened.');return;}saveOpen=!saveOpen;renderSaveBox();};document.getElementById('organize').onclick=()=>{organizing=!organizing;renderBranch();};wireShared();renderSaveBox();renderOrganizer();}
+function activate(id){const p=data.phrases[data.location].find(x=>x.id===id);if(!p)return false;if(data.mode==='speak')return speak(p.text,false,id);stopSpeech();data.draft=p.text;save();navigate('home');const editor=document.getElementById('draft');editor.focus();editor.setSelectionRange(editor.value.length,editor.value.length);status('Phrase inserted. Edit, then Speak.');return true;}
+function reorderPhrase(dir,id,targetIndex){
+ const arr=data.phrases[dir],from=arr.findIndex(p=>p.id===id);
+ if(from<0||targetIndex<0||targetIndex>=arr.length||from===targetIndex)return false;
+ const original=arr.slice(),[item]=arr.splice(from,1);arr.splice(targetIndex,0,item);
+ if(!save()){data.phrases[dir]=original;status('Order not saved; previous order restored.');return false;}
+ data.page=Math.floor(targetIndex/PAGE_SIZE);renderBranch();status('Order saved. '+item.text.slice(0,50)+' moved to position '+(targetIndex+1)+'.');return true;
+}
+function renderOrganizer(){const slot=document.getElementById('organize-slot');if(!slot||!organizing)return;
+ const dir=data.location,arr=data.phrases[dir],textMode=organizerMode==='text';
+ slot.innerHTML=`<div class="organizer" role="region" aria-label="Edit ${escapeHTML(data.names[dir])}"><h2>Edit ${escapeHTML(data.names[dir])}</h2><button type="button" id="organize-close">Close editing</button>
+ <div class="edit-switch" role="group" aria-label="Editing mode"><button id="text-edit-mode" type="button" aria-pressed="${textMode}">Text Edit</button><button id="order-edit-mode" type="button" aria-pressed="${!textMode}">Order Edit</button></div>
+ ${textMode?`<label for="rename">Collection name</label><div class="actions"><input id="rename" maxlength="30" value="${escapeHTML(data.names[dir])}" aria-label="Collection name"><button id="rename-save">Rename</button></div>`:
+ `<p class="order-help">Drag a large Move handle onto another phrase to place it there, even across pages. Or use Earlier / Later / Top / Bottom. The list includes every page of this collection.</p>`}
+ ${arr.map((p,i)=>`<div class="organizer-item" data-order-item="${escapeHTML(p.id)}">
+ ${textMode?`<div><label for="edit-${i}">Phrase ${i+1}</label><textarea id="edit-${i}" data-edit-text="${escapeHTML(p.id)}">${escapeHTML(p.text)}</textarea></div><div class="item-actions"><button type="button" data-save-text="${escapeHTML(p.id)}">Save text</button><button type="button" data-remove="${escapeHTML(p.id)}">Remove</button></div>`:
+ `<span class="order-label">${i+1}. ${escapeHTML(p.text.length>160?p.text.slice(0,160)+'…':p.text)}</span><div class="item-actions"><button class="move-handle" type="button" data-grab="${escapeHTML(p.id)}" draggable="true" aria-label="Drag phrase ${i+1} to reorder">↕ Move</button><button type="button" data-up="${escapeHTML(p.id)}" ${i===0?'disabled':''}>Earlier</button><button type="button" data-down="${escapeHTML(p.id)}" ${i===arr.length-1?'disabled':''}>Later</button><button type="button" data-first="${escapeHTML(p.id)}" ${i===0?'disabled':''}>Top</button><button type="button" data-last="${escapeHTML(p.id)}" ${i===arr.length-1?'disabled':''}>Bottom</button></div>`}
+ </div>`).join('')}</div>`;
+ document.getElementById('organize-close').onclick=()=>{organizing=false;renderBranch();};
+ document.getElementById('text-edit-mode').onclick=()=>{if(organizerMode!=='text'){organizerMode='text';renderOrganizer();}};
+ document.getElementById('order-edit-mode').onclick=()=>{if(organizerMode!=='order'){organizerMode='order';renderOrganizer();}};
+ if(textMode){
+  document.getElementById('rename-save').onclick=e=>{const n=document.getElementById('rename').value.trim();if(!n){e.__cxRejected=true;status('Enter a collection name.');return;}const before=data.names[dir];data.names[dir]=n.slice(0,30);if(!save()){data.names[dir]=before;e.__cxRejected=true;return;}render();};
+  slot.querySelectorAll('[data-save-text]').forEach(b=>b.onclick=e=>{const id=b.dataset.saveText,p=arr.find(x=>x.id===id),input=Array.from(slot.querySelectorAll('[data-edit-text]')).find(x=>x.dataset.editText===id);if(!p||!input){e.__cxRejected=true;return;}const t=input.value.trim();if(!t){e.__cxRejected=true;status('Phrase cannot be empty.');return;}const before=p.text;p.text=t;if(!save()){p.text=before;e.__cxRejected=true;return;}renderBranch();status('Phrase text saved.');});
+  slot.querySelectorAll('[data-remove]').forEach(b=>b.onclick=e=>{if(!window.confirm('Remove this saved phrase?')){e.__cxRejected=true;return;}const before=data.phrases[dir];data.phrases[dir]=before.filter(p=>p.id!==b.dataset.remove);if(!save()){data.phrases[dir]=before;e.__cxRejected=true;return;}data.page=Math.min(data.page,pageCount(dir)-1);renderBranch();});
+ }else{
+  slot.querySelectorAll('[data-up],[data-down],[data-first],[data-last]').forEach(b=>b.onclick=e=>{const id=b.dataset.up||b.dataset.down||b.dataset.first||b.dataset.last,i=arr.findIndex(p=>p.id===id),target=b.dataset.up?i-1:b.dataset.down?i+1:b.dataset.first?0:arr.length-1;if(!reorderPhrase(dir,id,target))e.__cxRejected=true;});
+  wireOrderDrag(slot,dir);
+ }
+}
+function wireOrderDrag(slot,dir){
+ const organizer=slot.querySelector('.organizer');let dragged=null,pointer=null;
+ const mark=id=>{slot.querySelectorAll('[data-order-item]').forEach(el=>{el.classList.toggle('drag-source',!!dragged&&el.dataset.orderItem===dragged);el.classList.toggle('drag-target',!!id&&el.dataset.orderItem===id&&id!==dragged);});};
+ const targetAt=(x,y)=>{const el=document.elementFromPoint(x,y);const item=el&&el.closest('[data-order-item]');return item&&slot.contains(item)?item.dataset.orderItem:null;};
+ const drop=id=>{if(!dragged||!id||dragged===id)return;const index=data.phrases[dir].findIndex(p=>p.id===id);reorderPhrase(dir,dragged,index);};
+ slot.querySelectorAll('[data-grab]').forEach(b=>{
+  b.addEventListener('dragstart',e=>{dragged=b.dataset.grab;if(e.dataTransfer){e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',dragged);}mark(null);});
+  b.addEventListener('dragend',()=>{dragged=null;mark(null);});
+  b.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'||!e.isPrimary)return;dragged=b.dataset.grab;pointer=e.pointerId;b.setPointerCapture(pointer);mark(null);e.preventDefault();});
+  b.addEventListener('pointermove',e=>{if(pointer!==e.pointerId)return;const target=targetAt(e.clientX,e.clientY);mark(target);const bounds=organizer.getBoundingClientRect();if(e.clientY<bounds.top+55)organizer.scrollTop-=18;else if(e.clientY>bounds.bottom-45)organizer.scrollTop+=18;e.preventDefault();});
+  b.addEventListener('pointerup',e=>{if(pointer!==e.pointerId)return;const target=targetAt(e.clientX,e.clientY);pointer=null;drop(target);dragged=null;mark(null);e.preventDefault();});
+  b.addEventListener('pointercancel',()=>{pointer=null;dragged=null;mark(null);});
+ });
+ slot.querySelectorAll('[data-order-item]').forEach(el=>{el.addEventListener('dragover',e=>{if(!dragged)return;e.preventDefault();mark(el.dataset.orderItem);});el.addEventListener('drop',e=>{if(!dragged)return;e.preventDefault();drop(el.dataset.orderItem);dragged=null;mark(null);});});
+}
+
+// B437: static, source-matched guide; no invented device screenshots or external assets.
+// A guide page never changes saved phrases, collection position or voice preference.
+const GUIDE_PAGES=[
+ {title:'Start here: type and speak',html:`<p>Home is the large typing screen. Tap the white message box and type with your phone’s usual keyboard. The keyboard’s autocorrect and suggestions depend on your device.</p><p>Press the large green triangle above the message to request speech. After roughly half a second, the control changes to a red square Stop button. A second tap during that short changeover is ignored to avoid accidental repeats.</p><p class="guide-note">This is a browser speech request. Hearing the voice depends on your browser, volume, installed voices and device.</p>`},
+ {title:'Stop and interruptions',html:`<p>Press the red square on Home, or <strong>Stop speech</strong> on a phrase page, to request an immediate stop. Starting another saved phrase interrupts the previous request.</p><p>Opening this guide stops a current speech request. The app also requests a stop when the browser page becomes hidden or closes. Screen-lock behavior depends on the browser and still needs a phone trial.</p><p class="guide-note">Do not depend on this browser prototype for emergency communication until it has been tested on the intended phone.</p>`},
+ {title:'Find your four collections',html:`<p>The colored, labeled edge tabs open your collections. Above is blue, Right green, Below orange and Left red by default. Names can be changed.</p><p>The tabs point toward each collection. To <strong>pull content toward a destination</strong>, swipe the other way: swipe <strong>down</strong> for Above, <strong>up</strong> for Below, <strong>right</strong> for Left, and <strong>left</strong> for Right. From Home each opens at page 1. You can start a swipe over phrase buttons too; a simple tap still activates the button.</p><p>From a phrase page, the house icon always returns directly to Home.</p>`},
+ {title:'Move between pages',html:`<p>Each collection shows up to four saved phrases per page. <strong>Repeat the same finger motion</strong> to go one page deeper: swipe left twice for Right page 2, or down twice for Above page 2.</p><p><strong>Reverse the swipe</strong> to go <strong>one page nearer Home</strong>: from Above page 2, swipe up to Above page 1; swipe up again to Home. The separate Home button always goes Home immediately.</p><p>The existing <strong>Farther out</strong> and <strong>Nearer Home</strong> buttons separately let you browse forward/back by one page without swiping. The position bar is vertical for Above/Below and horizontal for Left/Right, advancing in the direction of the collection.</p>`},
+ {title:'Switch branches and reopen',html:`<p>Choose a <strong>perpendicular</strong> swipe to enter another collection at <strong>page 1</strong>, regardless of your current depth. For example: swipe down twice to Above page 2, then swipe right to Left page 1. An opposite swipe from Left page 1 returns Home.</p><p>Tap a named directional tab as an alternative to a swipe. Tabs identify the destination direction; finger motion is opposite the destination arrow. The house button returns Home from any page.</p><p>When you reopen the same browser profile, the app attempts to restore the <strong>exact collection and page</strong> you last used. Reopening does <strong>not</strong> resume speech automatically.</p><p class="guide-note">Restoration relies on this browser’s local storage. Private/incognito mode, clearing site data, browser cleanup or storage failures can lose saved phrases and position.</p>`},
+ {title:'Save a phrase',html:`<p>Type a message on Home, then tap <strong>Save phrase</strong>. Review or edit its text, choose the destination collection and press <strong>Save phrase</strong> again.</p><p>On a collection page, <strong>Save phrase</strong> opens the same editor. Empty phrase text is rejected. New phrases are added at the end of that collection; use Order Edit to move them earlier.</p><p>Watch for a storage warning: a displayed change is not proof it survived closing if browser storage is unavailable.</p>`},
+ {title:'Speak or insert saved phrases',html:`<p>By default, tapping the main body of a saved phrase speaks it immediately. To change this for <strong>all</strong> saved phrases, go to Home, tap <strong>Edit</strong>, and find <strong>Saved phrases</strong>.</p><p>Choose <strong>Insert to edit</strong> to place a tapped phrase in the Home typing box instead. Correct it using the normal keyboard, then press Play. Choose <strong>Speak immediately</strong> to restore direct speaking.</p><p>This is one global setting, not a different setting for each phrase.</p>`},
+ {title:'Read long phrases',html:`<p>Tap <strong>Expand</strong> beside a saved phrase to reveal its complete text without starting speech. Tap <strong>Collapse</strong> or navigate away to hide it.</p><p>The main phrase button still follows your global Speak/Insert choice. Use Expand when you need to check a long phrase before selecting it.</p>`},
+ {title:'Text Edit and collection names',html:`<p>Open a collection and tap <strong>Edit</strong>. Select <strong>Text Edit</strong> to change the collection name, edit an existing phrase, or remove one.</p><p>After changing text, tap its <strong>Save text</strong> button. To change the collection name, use <strong>Rename</strong>. <strong>Remove</strong> asks for confirmation before deleting a phrase.</p><p>Use <strong>Close editing</strong> to return to the phrase page. Home’s Edit button is different: it opens communication settings.</p>`},
+ {title:'Order Edit: move phrases',html:`<p>In a collection, tap <strong>Edit</strong>, then <strong>Order Edit</strong>. This list includes phrases from <strong>all pages</strong> of that collection.</p><p>Use large <strong>Earlier</strong>, <strong>Later</strong>, <strong>Top</strong> and <strong>Bottom</strong> buttons to reposition phrases. The <strong>↕ Move</strong> handle also offers experimental drag-and-drop, but touch dragging has <strong>not</strong> been verified on a real phone.</p><p>After a successful move, the current page follows the moved phrase. If a save fails, the earlier order is restored in memory.</p>`},
+ {title:'Speech speed and voice',html:`<p>On Home, adjust the <strong>Speech speed</strong> slider beside the edit/save controls. It affects future speech requests.</p><p>Home → <strong>Edit</strong> → <strong>Speaking voice</strong> lets you choose a browser-provided voice. Press <strong>Test Voice</strong> to hear a sample, or <strong>Refresh voices</strong> if the list is empty. Voice availability, language, offline support and names depend on the browser and phone.</p><p>Web pages cannot reliably open Android’s system voice settings. Look under Android Settings → Accessibility → Text-to-speech output; the path may differ.</p>`},
+ {title:'Back up and restore phrases',html:`<p>At Home, tap <strong>Edit</strong>, then <strong>Download backup</strong> to save your phrase collections, text draft, voice preference and settings as a JSON file. Keep that file in Downloads, a USB drive, or another safe location outside this browser.</p><p>To recover phrases, choose <strong>Restore backup</strong>, select the saved JSON file, and confirm. Restore <strong>replaces</strong> your current phrases and settings; make a current backup first. Files are handled on your device, not sent to this website.</p><p>Clearing the browser’s <strong>site data</strong>, uninstalling or resetting its profile can erase locally saved phrases. A dedicated browser helps isolate usage but is not itself a backup.</p>`},
+ {title:'Troubleshooting and privacy',html:`<ul><li><strong>No sound?</strong> Check phone volume, whether the browser supports speech, and try Test Voice. Some voices need network access even though the HTML itself is local.</li><li><strong>Wrong page after reopening?</strong> Check whether you used the same browser/profile and whether site data was cleared.</li><li><strong>A swipe changed pages unexpectedly?</strong> Use the large named directional tabs or the separate Nearer/Farther page buttons instead. Repeat the same finger motion to go deeper; reverse it to move one page back.</li><li><strong>Changes did not stay?</strong> Look for a browser-storage warning. Use Home → Edit → Download backup, and keep the JSON file outside the browser.</li></ul><p class="guide-note">Saved phrases and preferences are stored locally in this browser profile; no account or server sync is provided. Standard and Visual Editions are separate apps. This v0.2.3 browser candidate has not been tested on your phone yet.</p>`}
+];
+const guideDialog=document.getElementById('guide-dialog');const guideOpenButton=document.getElementById('guide-open');
+let guidePage=0;
+function paintGuide(){const item=GUIDE_PAGES[guidePage];document.getElementById('guide-position').textContent=`Step ${guidePage+1} of ${GUIDE_PAGES.length}`;const c=document.getElementById('guide-content');c.innerHTML=`<h3 id="guide-step-title" tabindex="-1">${item.title}</h3>${item.html}`;c.scrollTop=0;document.getElementById('guide-prev').disabled=guidePage===0;const next=document.getElementById('guide-next');next.disabled=guidePage===GUIDE_PAGES.length-1;next.textContent=guidePage===GUIDE_PAGES.length-1?'End of guide':'Next';c.querySelector('h3').focus({preventScroll:true});}
+guideOpenButton.onclick=()=>{stopSpeech();guidePage=0;guideDialog.showModal();paintGuide();};
+document.getElementById('guide-close').onclick=()=>guideDialog.close();
+document.getElementById('guide-prev').onclick=()=>{if(guidePage>0){guidePage--;paintGuide();}};
+document.getElementById('guide-next').onclick=()=>{if(guidePage<GUIDE_PAGES.length-1){guidePage++;paintGuide();}};
+guideDialog.addEventListener('close',()=>{guideOpenButton.focus({preventScroll:true});});
+
+// Phone-trial gesture handling: include the Home cross, branch tabs, and phrase
+// buttons. Only an intentional drag navigates, with synthetic click suppressed.
+// Leave editing overlays and active text inputs alone; keep named tabs as fallback.
+const gestureCue=document.createElement('div');gestureCue.id='gesture-cue';gestureCue.className='gesture-cue';gestureCue.setAttribute('aria-hidden','true');gestureCue.innerHTML='<span class="cue-arrow"></span><span class="cue-label"></span>';document.body.appendChild(gestureCue);
+let cueTimer=null,suppressedSwipeClick=null;
+const reduceMotion=()=>!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+// v0.2.2 required 108-145 px: impractical on a small handset/button. Trial only.
+const swipeThreshold=()=>Math.max(55,Math.min(84,Math.min(window.innerWidth,window.innerHeight)*.18));
+const gestureAxis=(dx,dy)=>{const major=Math.max(Math.abs(dx),Math.abs(dy)),minor=Math.min(Math.abs(dx),Math.abs(dy));if(!major||minor>major*.45)return null;return Math.abs(dx)>Math.abs(dy)?(dx<0?'left':'right'):(dy<0?'up':'down');};
+function swipePreview(step){const target=SWIPE_TO_BRANCH[step];if(!target)return {label:'Home',color:'top'};if(data.location==='home')return {label:'Open '+data.names[target],color:target};if(target===data.location)return {label:'Farther '+data.names[target],color:target};if(target===OPPOSITE_BRANCH[data.location])return data.page>0?{label:'Nearer Home',color:data.location}:{label:'Return Home',color:data.location};return {label:'Open '+data.names[target],color:target};}
+function finishCue(accepted){clearTimeout(cueTimer);gestureCue.className='gesture-cue '+(accepted?'is-accepted':'is-settling');gestureCue.style.transform='';cueTimer=setTimeout(()=>{gestureCue.className='gesture-cue';gestureCue.style.transform='';},reduceMotion()?0:220);}
+function updateCue(dx,dy){const step=gestureAxis(dx,dy);if(!step)return;const major=Math.max(Math.abs(dx),Math.abs(dy));if(major<18)return;clearTimeout(cueTimer);const armed=major>=swipeThreshold(),preview=swipePreview(step);const palette={top:'#6d9dff',right:'#48bd8e',bottom:'#ffaf4c',left:'#ff6875'};gestureCue.style.setProperty('--cue-color',palette[preview.color]);gestureCue.querySelector('.cue-arrow').textContent={top:'↑',bottom:'↓',left:'←',right:'→'}[SWIPE_TO_BRANCH[step]];gestureCue.querySelector('.cue-label').textContent=(armed?'Release: ':'Pull to ')+preview.label;gestureCue.className='gesture-cue is-visible is-tracking'+(armed?' is-armed':'');const travel=Math.min(65,major*.34);gestureCue.style.transform=reduceMotion()?'translate(-50%,-50%)':`translate(-50%,-50%) translate(${step==='left'?-travel:step==='right'?travel:0}px,${step==='up'?-travel:step==='down'?travel:0}px)`;}
+function touchScrollChanged(start){return Math.abs(window.scrollY-start.scrollY)>7||Math.abs(window.scrollX-start.scrollX)>7||Math.abs(screen.scrollTop-start.screenScroll)>7;}
+function cancelGesture(){if(gestureStart){gestureStart=null;finishCue(false);}}
+function gestureAllowed(target){
+ if(!target.closest||!target.closest('.communication-layout'))return false;
+ if(target.closest('.edit-overlay,.organizer,.savebox,.full,[contenteditable="true"],select,input'))return false;
+ // An already-focused Home textarea belongs to text editing. Otherwise it can
+ // be the start of a deliberate swipe, not a reason Home swipes do nothing.
+ if(target.closest('textarea')&&!(target.id==='draft'&&document.activeElement!==target))return false;
+ return true;
+}
+document.addEventListener('touchstart',e=>{
+ if(e.touches.length!==1||!gestureAllowed(e.target)){cancelGesture();return;}
+ clearTimeout(cueTimer);gestureCue.className='gesture-cue';gestureCue.style.transform='';
+ gestureStart={id:e.touches[0].identifier,x:e.touches[0].clientX,y:e.touches[0].clientY,scrollX:window.scrollX,scrollY:window.scrollY,screenScroll:screen.scrollTop,dragged:false};
+},{passive:true});
+document.addEventListener('touchmove',e=>{
+ if(!gestureStart)return;
+ if(e.touches.length!==1||e.touches[0].identifier!==gestureStart.id||touchScrollChanged(gestureStart)){cancelGesture();return;}
+ const dx=e.touches[0].clientX-gestureStart.x,dy=e.touches[0].clientY-gestureStart.y;
+ if(gestureAxis(dx,dy)&&Math.max(Math.abs(dx),Math.abs(dy))>=18){
+  gestureStart.dragged=true;
+  if(e.cancelable)e.preventDefault();
+ }
+ updateCue(dx,dy);
+},{passive:false});
+document.addEventListener('touchend',e=>{
+ if(!gestureStart)return;const start=gestureStart;gestureStart=null;
+ const touch=Array.from(e.changedTouches).find(t=>t.identifier===start.id);
+ if(!touch||e.touches.length||touchScrollChanged(start)){finishCue(false);return;}
+ const dx=touch.clientX-start.x,dy=touch.clientY-start.y;
+ const accepted=!!gestureAxis(dx,dy)&&Math.max(Math.abs(dx),Math.abs(dy))>=swipeThreshold();
+ finishCue(accepted);
+ if(accepted){
+  if(e.cancelable)e.preventDefault();
+  // A browser may still dispatch a synthetic click to the original button.
+  suppressedSwipeClick={x:touch.clientX,y:touch.clientY,until:performance.now()+550};
+  moveSwipe(dx,dy);
+ }
+},{passive:false});
+document.addEventListener('touchcancel',cancelGesture,{passive:true});
+// Suppress only the mouse-like click echo of the most recent touch swipe, never
+// keyboard activation, a real mouse click or later independent taps.
+document.addEventListener('click',e=>{
+ if(!suppressedSwipeClick)return;
+ const s=suppressedSwipeClick;
+ if(performance.now()>s.until){suppressedSwipeClick=null;return;}
+ if(e.detail===0||e.pointerType==='mouse')return;
+ if(Math.hypot(e.clientX-s.x,e.clientY-s.y)<=64){
+  suppressedSwipeClick=null;e.preventDefault();e.stopImmediatePropagation();
+ }
+},true);
+// Capture the button geometry before a click handler may synchronously rerender it.
+// The click bubble follows the actual handler; rejected/guarded/disabled actions never
+// get an accepted cue. This cue means input was accepted, NOT that saving or speech finished.
+let acceptedPressCount=0,lastAcceptedPress='',acceptedPressTimer=null;
+const acceptedPressCue=document.createElement('div');acceptedPressCue.className='accepted-press-cue';acceptedPressCue.setAttribute('aria-hidden','true');acceptedPressCue.hidden=true;document.body.appendChild(acceptedPressCue);
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button');if(!b||b.disabled||b.getAttribute('aria-disabled')==='true')return;const r=b.getBoundingClientRect();e.__cxButtonRect={left:r.left,top:r.top,width:r.width,height:r.height};e.__cxButtonName=b.id||b.dataset.go||b.dataset.activate||b.textContent.trim().slice(0,30);},true);
+document.addEventListener('click',e=>{if(e.__cxRejected||!e.__cxButtonRect)return;const r=e.__cxButtonRect;if(!r.width||!r.height)return;acceptedPressCount++;lastAcceptedPress=e.__cxButtonName;clearTimeout(acceptedPressTimer);acceptedPressCue.hidden=false;acceptedPressCue.style.left=r.left+'px';acceptedPressCue.style.top=r.top+'px';acceptedPressCue.style.width=r.width+'px';acceptedPressCue.style.height=r.height+'px';acceptedPressCue.style.opacity='1';acceptedPressTimer=setTimeout(()=>{acceptedPressCue.style.opacity='0';acceptedPressTimer=setTimeout(()=>{acceptedPressCue.hidden=true;acceptedPressTimer=null;},reduceMotion()?0:140);},reduceMotion()?180:230);});
+document.getElementById('home').onclick=()=>navigate('home');document.querySelectorAll('[data-go]').forEach(b=>b.onclick=e=>{const step={top:'down',bottom:'up',left:'right',right:'left'}[b.dataset.go];directionalInput(step);if(e.detail>0)navigationTap={dir:data.location,x:e.clientX,y:e.clientY,until:performance.now()+380};});
+window.addEventListener('pagehide',()=>stopSpeech());document.addEventListener('visibilitychange',()=>{if(document.hidden)stopSpeech();});
+document.addEventListener('click',e=>{if(expanded&&data.location!=='home'&&!e.target.closest('.phrase')){expanded=null;renderBranch();}});
+// VisualViewport resize is observed, not used to alter the browser or keyboard.
+function syncViewport(){const h=window.visualViewport?window.visualViewport.height:window.innerHeight;if(h>0)document.documentElement.style.setProperty('--vvh',Math.round(h)+'px');}
+window.addEventListener('resize',syncViewport);if(window.visualViewport)window.visualViewport.addEventListener('resize',syncViewport);
+syncViewport();load();refreshVoices();
+// Some browsers initially return an empty list; update only the open picker when it changes.
+if('speechSynthesis'in window&&window.speechSynthesis&&typeof window.speechSynthesis.addEventListener==='function')window.speechSynthesis.addEventListener('voiceschanged',refreshVoices);
+render();if(!storageAvailable)status('Browser storage unavailable: changes may not persist.');
+// Diagnostic API for local deterministic tests only; no network or external telemetry.
+window.__crossxspeakTest={getState:()=>JSON.parse(JSON.stringify(data)),navigate,moveSwipe,directionalInput,swipePreview,stopSpeech,getGestureThreshold:swipeThreshold,getHomeSpeech:()=>({phase:homeSpeech.phase,guardUntil:homeSpeech.guardUntil,epoch:speechEpoch}),getPressFeedback:()=>({count:acceptedPressCount,last:lastAcceptedPress,visible:!acceptedPressCue.hidden}),getVoices:()=>availableVoices.map(voiceIdentity),refreshVoices,reorderPhrase,selectedVoice:()=>{const v=selectedVoice();return v?voiceIdentity(v):null;},getGuide:()=>({page:guidePage,total:GUIDE_PAGES.length,open:guideDialog.open})};
+})();
+</script>
+<!-- Relative paths support both GitHub Pages project sites and a custom domain. -->
+<script>
+if (window.isSecureContext && 'serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').catch(function (error) {
+      console.warn('Offline support could not be activated:', error);
+    });
+  });
+}
+</script>
+</body>
+</html>

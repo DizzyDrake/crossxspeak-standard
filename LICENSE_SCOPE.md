@@ -1,0 +1,3 @@
+# CrossXSpeak Standard v0.2.2 WQ431 — rights and lineage
+
+Source-only derivative of the owner-approved Apache-2.0-licensed Standard v0.2.1 B437 package. The `LICENSE` and historical `LICENSE_SCOPE.md` are byte-identical to that package. They are included for attribution and owner-approval continuity. WQ431 modifies the Standard HTML and adds tests/documentation to implement the Nov 4 owner correction; it does not create new copyright claims, grant rights in external components, or include Visual Edition assets. Owner license decision: `/Research Projects/FOSS Licensing and Public Software Distribution/Updates/OWNER_20261101_APACHE2_LICENSE_OWNER_DECISION.md`. No NOTICE was established as necessary from the inspected source. 
